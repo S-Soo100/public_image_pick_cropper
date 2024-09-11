@@ -7,13 +7,16 @@ class ImageCropService {
   final ImagePicker _picker = ImagePicker();
 
   Future<bool> requestPermission() async {
-    if (await Permission.storage.request().isGranted &&
-        await Permission.camera.request().isGranted) {
-      return true;
+    bool storage = await Permission.storage.request().isGranted;
+    bool camera = await Permission.camera.request().isGranted;
+
+    if (await Permission.storage.request().isDenied ||
+        await Permission.camera.request().isDenied) {
+      return false;
     }
-    await Permission.storage.request();
-    await Permission.camera.request();
-    return false;
+    // await Permission.storage.request();
+    // await Permission.camera.request();
+    return true;
   }
 
   Future<XFile?> takePhoto() async {

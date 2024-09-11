@@ -29,8 +29,11 @@ class _ImageCropViewState extends State<ImageCropView> {
   }
 
   Future<void> _requestPermission() async {
+    // await _imageCropService.requestPermission();
     bool permissionGranted = await _imageCropService.requestPermission();
-    if (!permissionGranted) {
+    Future.delayed(Duration(seconds: 1));
+    print(permissionGranted ? "true" : "false");
+    if (permissionGranted == false) {
       fToast.showToast(child: Text('권한이 필요합니다.'));
     }
   }
@@ -76,7 +79,7 @@ class _ImageCropViewState extends State<ImageCropView> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          '📸 Picture Picker',
+          '📸 Photo Picker',
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.w700, color: Colors.black),
@@ -106,7 +109,6 @@ class _ImageCropViewState extends State<ImageCropView> {
                 onTap: () {
                   if (_isPictureUploaded) {
                     _cropAndCompressImage(_originalImage!.path);
-                    return;
                   }
                   _showUploadPictureModal(context);
                 },
