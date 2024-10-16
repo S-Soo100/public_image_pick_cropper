@@ -31,8 +31,8 @@ class _ImageCropViewState extends State<ImageCropView> {
   Future<void> _requestPermission() async {
     // await _imageCropService.requestPermission();
     bool permissionGranted = await _imageCropService.requestPermission();
-    Future.delayed(Duration(seconds: 1));
-    print(permissionGranted ? "true" : "false");
+    // Future.delayed(Duration(seconds: 1));
+    // print(permissionGranted ? "true" : "false");
     if (permissionGranted == false) {
       fToast.showToast(child: Text('권한이 필요합니다.'));
     }
